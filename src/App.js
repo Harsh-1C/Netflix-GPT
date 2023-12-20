@@ -1,10 +1,10 @@
 import React from "react";
+import Body from "./Components/Body"
+
 
 function App() {
   return (
-    <div className=" font-bold  ">
-      Hello world
-    </div>
+   <Body/>
   );
 }
 
