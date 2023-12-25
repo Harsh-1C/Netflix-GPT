@@ -3,14 +3,13 @@ import Header from './Header'
 import {checkValidation} from "../Utils/validate"
 import { auth } from "../Utils/firebase"
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from "firebase/auth"
-import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../Utils/store/userSlice'
+import { BG_URL } from '../Utils/constant'
 
 const Login = () => {
   // Hooks
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // State Variables
   const [errorMessage, setErrorMessage] = useState(null);
@@ -44,9 +43,10 @@ const Login = () => {
             const {uid, displayName, email} = auth.currentUser;
             dispatch(addUser({uid:uid, displayName: displayName, email: email}));
           }).catch((error) => {
-
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setErrorMessage(`${errorCode} - ${errorMessage}`); 
           });
-          navigate("/browse");
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -58,8 +58,7 @@ const Login = () => {
       // sign in
       signInWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
-        const user = userCredential.user;
-        navigate("/browse");
+
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -73,7 +72,7 @@ const Login = () => {
     <div>
       <Header/>
       <div className= " absolute ">
-        <img src='https://assets.nflxext.com/ffe/siteui/vlv3/ca6a7616-0acb-4bc5-be25-c4deef0419a7/c5af601a-6657-4531-8f82-22e629a3795e/IN-en-20231211-popsignuptwoweeks-perspective_alpha_website_medium.jpg' alt='bg' />
+        <img src={BG_URL} alt='bg' />
       </div>
 
         <form onSubmit={(e) => e.preventDefault()} className="bg-black w-3/12 absolute my-36 mx-auto left-0 right-0 text-white bg-opacity-80 p-10 rounded-lg ">
@@ -96,7 +95,7 @@ const Login = () => {
 
           <button className= ' rounded-lg border-round bg-red-700 w-full p-4 my-6 hover:bg-red-500' onClick={submitHandler}>{isSignIn ? "Sign In" : "Sign Up"} </button>
           <p className='cursor-pointer hover:underline' onClick={toggleHandler}>{isSignIn ? "New to Netfilx? Sign Up" : "Already a user? Sign In"}</p>
-
+          
         </form>
     </div>
   )
