@@ -6,6 +6,7 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfil
 import { useDispatch } from 'react-redux'
 import { addUser } from '../Utils/store/userSlice'
 import { BG_URL } from '../Utils/constant'
+import Loader from './Loader'
 
 const Login = () => {
   // Hooks
@@ -14,7 +15,7 @@ const Login = () => {
   // State Variables
   const [errorMessage, setErrorMessage] = useState(null);
   const [isSignIn, setIsSignIn] = useState(true);
-  
+  const [loading, setLoading] = useState(false);
 
   // references for values of input fields
   const email = useRef(null);
@@ -34,8 +35,10 @@ const Login = () => {
     // Signup sigin logic goes here...
     if(!isSignIn){
       // Sign up logic
+      setLoading(true);
         createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
+          setLoading(false);
           updateProfile(auth.currentUser, {
             displayName: fullName.current.value,
           }).then(() => {
@@ -56,9 +59,10 @@ const Login = () => {
     }
     else{
       // sign in
+      setLoading(true);
       signInWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
-
+        setLoading(false);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -93,9 +97,9 @@ const Login = () => {
           errorMessage !== null && (<p className='  text-red-500 text-lg font-bold '>{errorMessage}</p>)
           }
 
-          <button className= ' rounded-lg border-round bg-red-700 w-full p-4 my-6 hover:bg-red-500' onClick={submitHandler}>{isSignIn ? "Sign In" : "Sign Up"} </button>
-          <p className='cursor-pointer hover:underline' onClick={toggleHandler}>{isSignIn ? "New to Netfilx? Sign Up" : "Already a user? Sign In"}</p>
-          
+          <button className= ' rounded-lg border-round bg-red-700 w-full p-4 my-6 hover:bg-red-500' onClick={submitHandler}>{isSignIn ? loading? <Loader/> :"Sign In" : loading? <Loader/> :"Sign Up"} </button>
+          <p className='cursor-pointer hover:underline' onClick={toggleHandler}>{isSignIn ? "New to Netfilx? Sign Up" : "Already a user? Sign In"}</p>  
+  
         </form>
     </div>
   )
