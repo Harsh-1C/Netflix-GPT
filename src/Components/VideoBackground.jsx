@@ -11,9 +11,9 @@ const VideoBackground = ({movieId}) => {
 
     return (
         <div className="w-screen  ">
-            <iframe className="w-screen aspect-video pointer-events-none bg-cover"  src={"https://www.youtube.com/embed/"+trailerKey+"?&autoplay=1&mute=1&loop=1"}    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+            <iframe className="w-[100%] aspect-video pointer-events-none bg-cover"  src={"https://www.youtube.com/embed/"+trailerKey+"?&autoplay=1&mute=1&loop=1"}    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
         </div>
     )
 }
 
-export default VideoBackground
+export default VideoBackground;

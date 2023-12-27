@@ -14,3 +14,6 @@ export const GET_API_OPTIONS = {
   };
 
   export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
+
+
+  export const SUPPORTED_LANG = [{identifier: "english", value: "English"},{identifier: "hindi", value: "Hindi"},{identifier: "spanish", value: "Spanish"}, {identifier: "sanskrit", value: "Sanskrit"}]
