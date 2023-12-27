@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeUser, addUser } from '../Utils/store/userSlice';
 import { LOGO_URL, USER_AVATAR } from '../Utils/constant';
-import { toggleGptState } from '../Utils/store/GptSlice';
+import { addGptMovies, toggleGptState } from '../Utils/store/GptSlice';
 import {SUPPORTED_LANG} from '../Utils/constant';
 import { changeLanguage } from '../Utils/store/appConfig';
 
@@ -15,8 +15,12 @@ const Header = () => {
   const dispatch = useDispatch();
   // subscribing to the user
   const user = useSelector(appStore => appStore.user)  
+  const gpt = useSelector(store => store.gpt.gptState); 
 
   const handleSignOut = () => {
+
+    dispatch(addGptMovies({}));
+    if(gpt.gptState) dispatch(toggleGptState());
     signOut(auth).then(() => {
       // Sign-out successful.
 

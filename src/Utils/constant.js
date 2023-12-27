@@ -18,4 +18,4 @@ export const GET_API_OPTIONS = {
 
   export const SUPPORTED_LANG = [{identifier: "english", value: "English"},{identifier: "hindi", value: "Hindi"},{identifier: "spanish", value: "Spanish"}, {identifier: "sanskrit", value: "Sanskrit"}]
 
-  export const OPENAI_KEY = "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";
+  

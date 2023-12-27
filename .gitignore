@@ -24,3 +24,6 @@ yarn-error.log*
 
 
 README.md
+
+.prettierrc
+.env
