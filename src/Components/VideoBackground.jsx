@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import useTrailerKey from "../hooks/useTrailerKey"
-
+import Loader from "./Loader"
 
 const VideoBackground = ({movieId}) => {
     
@@ -10,8 +10,8 @@ const VideoBackground = ({movieId}) => {
     if(!trailerKey) return;
 
     return (
-        <div className="w-screen  ">
-            <iframe className="w-[100%] aspect-video pointer-events-none bg-cover"  src={"https://www.youtube.com/embed/"+trailerKey+"?&autoplay=1&mute=1&loop=1"}    allow="autoplay; loop;" allowFullScreen></iframe>
+        <div className="w-screen h-screen ">
+            <iframe resizeMode={"contain"} className="w-[100%]  aspect-video pointer-events-none bg-cover"  src={"https://www.youtube.com/embed/"+trailerKey+"?&autoplay=1&mute=1&loop=1"}    allow="autoplay; loop;" ></iframe>
         </div>
     )
 }

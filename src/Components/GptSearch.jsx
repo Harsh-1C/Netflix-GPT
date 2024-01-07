@@ -3,7 +3,10 @@ import GptSearchBar from './GptSearchBar';
 import GptSearchResults from './GptSearchResults';
 import { BG_URL } from '../Utils/constant';
 
+
 const GptSearch = () => {
+
+
   return (
     <div>
       <div className= "  -z-30 fixed">

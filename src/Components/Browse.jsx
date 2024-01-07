@@ -15,17 +15,16 @@ const Browse  = () => {
   useNowPlayingMovies();
   usePopularMovies();
   useTrendingMovies();
-
+  
   const showGptSearch = useSelector(store => store.gpt.gptState);
   return (
     <div>
-      <Header/>
       {
         showGptSearch ? <GptSearch/> : (
           <>
            <MainContainer/>
           <SecondaryContainer/>
-      </>
+          </>
         )
       }
      

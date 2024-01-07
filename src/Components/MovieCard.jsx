@@ -1,15 +1,18 @@
 import React from 'react'
-import { IMG_CDN_URL } from '../Utils/constant'
+import { Link } from 'react-router-dom';
+import { Breathing, Image, Shimmer } from 'react-shimmer'
 
 const MovieCard = ({posterURL, title, id}) => {
 
   if(!posterURL || posterURL.endsWith('null')) return null;
 
   return (
-    <div className=' w-44 selection: m-2 cursor-pointer transition-transform hover:scale-[1.2]'>
-      <img src={posterURL} alt="movie-poster" className=' rounded-sm ' />
+    <Link to={`/browse/${id}`}>
+    <div className=' overflow-hidden w-44  m-2 cursor-pointer transition-transform hover:scale-[1.2]'>
+      <Image src={posterURL} className='rounded-sm' fallback={<Breathing width={175} height={270} />} />
       <h2 className='text-md py-2'>{title}</h2>
-    </div>
+      </div>
+    </Link>
   )
 }
 

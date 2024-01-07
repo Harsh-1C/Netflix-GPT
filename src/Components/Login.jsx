@@ -3,15 +3,18 @@ import Header from './Header'
 import {checkValidation} from "../Utils/validate"
 import { auth } from "../Utils/firebase"
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from "firebase/auth"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addUser } from '../Utils/store/userSlice'
 import { BG_URL } from '../Utils/constant'
 import Loader from './Loader'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   // Hooks
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const user = useSelector(store => store.user);
+  if(user) navigate("/browse")
   // State Variables
   const [errorMessage, setErrorMessage] = useState(null);
   const [isSignIn, setIsSignIn] = useState(true);
@@ -45,6 +48,7 @@ const Login = () => {
             // Profile updated!
             const {uid, displayName, email} = auth.currentUser;
             dispatch(addUser({uid:uid, displayName: displayName, email: email}));
+            // navigate("/browse");
           }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -55,6 +59,7 @@ const Login = () => {
             const errorCode = error.code;
             const errorMessage = error.message;
             setErrorMessage(`${errorCode} - ${errorMessage}`);
+            setLoading(false);
         });
     }
     else{
@@ -63,18 +68,21 @@ const Login = () => {
       signInWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
         setLoading(false);
+        navigate("/browse");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         setErrorMessage(`${errorCode} - ${errorMessage}`); 
+        setLoading(false);
       });
     }
   }
 
+ 
+
   return (
     <div>
-      <Header/>
       <div className= " absolute ">
         <img src={BG_URL} alt='bg' />
       </div>
@@ -97,7 +105,7 @@ const Login = () => {
           errorMessage !== null && (<p className='  text-red-500 text-lg font-bold '>{errorMessage}</p>)
           }
 
-          <button className= ' rounded-lg border-round bg-red-700 w-full p-4 my-6 hover:bg-red-500' onClick={submitHandler}>{isSignIn ? loading? <Loader/> :"Sign In" : loading? <Loader/> :"Sign Up"} </button>
+          <button className= ' rounded-lg border-round bg-red-700 w-full p-4 my-6 hover:bg-red-500' onClick={submitHandler}>{isSignIn ? loading? <Loader  prop={"w-6 h-6 border-white-600"}/> :"Sign In" : loading? <Loader prop={"w-6 h-6 border-white-600"}/> :"Sign Up"} </button>
           <p className='cursor-pointer hover:underline' onClick={toggleHandler}>{isSignIn ? "New to Netfilx? Sign Up" : "Already a user? Sign In"}</p>  
   
         </form>

@@ -24,9 +24,6 @@ const GptSearchBar = () => {
     const searchText = searchInput.current.value;
     // TODO: make an api call to gpt to get the movie results
     if(!searchText) return;
-
-    console.log(searchText);
-
     const gptQuery = "Act as a movie reccomendation system and suggest some movie for the query "+searchText+ ". Only give me names of top 5 movie, commas seperated like the example result given ahead. Example Results: 3idiot, gadar, chupke chupke, don, sholay "
 
 
@@ -59,7 +56,7 @@ const GptSearchBar = () => {
         <input ref={searchInput} className=' p-4 m-4 col-span-9 rounded-md ' placeholder={lang[currentLang].placeHolder}/>
         <button className='bg-red-600  px-4 py-2 m-4 text-white rounded-md col-span-3 hover:bg-red-800 transition-all' onClick={handleGptSearchClick} >
           {
-            loading ? <Loader /> : lang[currentLang].search
+            loading ? <Loader prop={"w-6 h-6 border-white-600"} /> : lang[currentLang].search
           }
 
         </button>
